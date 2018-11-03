@@ -1,2 +1,2 @@
 # DNS-Security
-Comparison of normal DNS, DNS Sec and DNS crypt
+Comparison of DNS, DNS Sec and DNS crypt
