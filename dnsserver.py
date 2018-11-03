@@ -22,7 +22,11 @@ print 'Listening on {}:{}'.format(bind_ip, bind_port)
 def handle_client_connection(client_socket):
     request = client_socket.recv(1024)
     print 'Received {}'.format(request)
-    ip = read_dnsentries[request]
+    if request in read_dnsentries.keys():
+    	ip = read_dnsentries[request]
+    else:
+         ip = "Server IP could not be found"
+
     client_socket.send(ip)
     print 'Sent {}'.format(ip)
     client_socket.close()
