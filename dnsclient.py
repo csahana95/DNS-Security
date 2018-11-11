@@ -18,5 +18,5 @@ client.send(servername)
 response = client.recv(4096)
 t1 = time.time()
 
-print response
-print "Time taken: {0}".format(t1-t0)
+print(response)
+print("Time taken: {0}".format(t1 - t0))
