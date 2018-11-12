@@ -6,7 +6,7 @@ Usage:
 python dnsclient.py www.google.com
 
 
-#DNS_SEC
+# DNS_SEC
 python dnsserver.py<br/>
 python dnsclient.py www.cloudflare.com
 
