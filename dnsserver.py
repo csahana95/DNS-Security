@@ -46,17 +46,31 @@ def dnssec_validate(domain_name):
     try:
 
         response = dns.resolver.query(domain_name, dns.rdatatype.NS)
-        # print(response.rrset)
+        # look for the domain name in the nameserver
+        # nameserver.send(domain_name)
+        print(response.rrset)
+        # get back the name of the nameserver containing this domain
+        print(".............")
         nsname = response.rrset[0]
+        print(nsname)
+        print(".............")
+        # get the IP of the nameserver
         response = dns.resolver.query(str(nsname), rdtype=dns.rdatatype.A)
         nsaddr = response.rrset[0].to_text()
+        print(nsaddr)
+        print(".............")
+        # look for the DNS KEY for the domain name
         request = dns.message.make_query(domain_name, dns.rdatatype.DNSKEY, want_dnssec=True)
+        print(request)
+        print(".............")
         response = dns.query.udp(request, nsaddr)
-        # print("response :{}".format(response))
+        print("response :{}".format(response))
+        print(".............")
         if response.rcode() != 0:
             print("SOMETHING WENT WRONG")
         answer = response.answer
         print(answer)
+        print(".............")
         print(len(answer))
         if(len(answer)!=2):
             print("SOMETHING WENT WRONG")
