@@ -8,8 +8,10 @@ python dnsclient.py www.google.com
 
 # DNS_SEC
 python dnsserver.py<br/>
-python dnsclient.py www.cloudflare.com
+python dnssecclient.py
 
-Note that we need to add IP addresses for these addresses. Somehow, www.google.com returned empty response for DNSKEY when dnssec was set to true.
+
+1. dnsserver receives request from client and asks dnssecserver to provide the ip address
+2. it also verifies the signature of the domain name to make sure information is not altered on the way
 
 
