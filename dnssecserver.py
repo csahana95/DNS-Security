@@ -1,17 +1,37 @@
 from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
 from Crypto import Random
+import numpy as np
 
-# from Crypto import Signature
+# Load
+read_dnsentries = np.load('dnsrecords.npy').item()
 
+# Generate key
 random_generator = Random.new().read
-key = RSA.generate(1024, random_generator)
+__key = RSA.generate(1024, random_generator)
+DNS_KEY = __key.publickey()
+RRSIG = {}
+# from Crypto import Signature
+for each in read_dnsentries.keys():
+    domain = each
+    hash = SHA256.new(domain.encode('utf8')).digest()
+    signature = __key.sign(hash, '')
+    RRSIG[each] = signature
 
-DNS_KEY = key.publickey()
+def query_addr(domain):
+    if domain in read_dnsentries.keys():
+        return read_dnsentries[domain]
+    else:
+        return 0
 
-text = 'sdfhifvn'
-hash = SHA256.new(text.encode('utf8')).digest()
-signature = key.sign(hash, '')
-RRSIG = signature
+def query_DNSKEY():
+    DNS_KEY = __key.publickey()
+    return DNS_KEY
+
+def query_signature(domain):
+    return RRSIG[domain]
+
+
+
 print(signature)
 print(DNS_KEY.verify(hash, signature))
