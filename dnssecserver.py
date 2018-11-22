@@ -31,7 +31,3 @@ def query_DNSKEY():
 def query_signature(domain):
     return RRSIG[domain]
 
-
-
-print(signature)
-print(DNS_KEY.verify(hash, signature))
