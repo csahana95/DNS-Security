@@ -10,6 +10,7 @@ from Crypto.Util import randpool
 import pickle
 from Crypto.Hash import SHA256
 import time
+from pandas import DataFrame
 
 
 
@@ -20,9 +21,12 @@ def client_program():
 	client_socket = socket.socket()  # instantiate
 	client_socket.connect((host, port))  # connect to the server
 	rec = np.load('dns_records.npy').item()
+	query_no = list()
+	resp_time = list()
+
 
 	
-	while True:
+	for i in range (1,901):
 		servername = random.choice(rec.keys())
 		rnd_gen = rnd.new().read
 		client_key = RSA.generate(1024, rnd_gen)
@@ -59,7 +63,11 @@ def client_program():
 		print(ip) 
 		t1 = time.time()
 		print("Time taken: {0}".format(t1-t0))
+		query_no.append(i)
+		resp_time.append(t1-t0)
 		
+	df = DataFrame({'Query Number': query_no, 'Response Time': resp_time})	
+	df.to_excel('output.xlsx', sheet_name='sheet1', index=False)
 
 		
 
