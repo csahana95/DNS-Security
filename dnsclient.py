@@ -1,8 +1,7 @@
 import socket
 import sys
 import time
-#hostname, sld, tld, port = 'www', 'integralist', 'co.uk', 80
-#target = '{}.{}.{}'.format(hostname, sld, tld)
+
 servername = sys.argv[1]
 # create an ipv4 (AF_INET) socket object using the tcp protocol (SOCK_STREAM)
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
